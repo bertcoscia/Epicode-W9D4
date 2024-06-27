@@ -25,7 +25,7 @@ class SingleBook extends React.Component {
             <span className="rounded-pill px-3 py-2 bg-info">${this.props.book.price}</span>
           </Card.Body>
         </Card>
-        <CommentArea asin={this.props.book.asin} />
+        {this.state.isSelected && <CommentArea asin={this.props.book.asin} />}
       </Col>
     );
   }
