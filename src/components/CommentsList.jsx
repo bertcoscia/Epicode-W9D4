@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Badge, ListGroup } from "react-bootstrap";
+import SingleComment from "./SingleComment";
 
 class CommentsList extends Component {
   state = {};
@@ -8,13 +9,7 @@ class CommentsList extends Component {
     return (
       <ListGroup className="my-3">
         {this.props.comments.map(comment => (
-          <ListGroup.Item key={comment._id} className="d-flex flex-column align-items-center">
-            <p>
-              <strong>{comment.author}</strong>
-            </p>
-            <p>{comment.comment}</p>
-            <Badge bg="info">{comment.rate}</Badge>
-          </ListGroup.Item>
+          <SingleComment key={comment._id} className="d-flex flex-column align-items-center" commentId={comment._id} />
         ))}
       </ListGroup>
     );

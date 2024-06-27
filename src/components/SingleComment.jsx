@@ -1,17 +1,14 @@
 import { Component } from "react";
-import { Badge, Container, ListGroup } from "react-bootstrap";
-import CommentsList from "./CommentsList";
+import { Badge, ListGroup } from "react-bootstrap";
 
 const URL = "https://striveschool-api.herokuapp.com/api/comments/";
 const auth = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZjk5NzdjMjM5YzAwMTUyZjRiM2MiLCJpYXQiOjE3MTk0OTA4MjksImV4cCI6MTcyMDcwMDQyOX0.DKsZ6NE4RC2q5DGQhtPu6bhYlYLaj2pWT9Zbpm7r2Ws";
 
-class CommentArea extends Component {
-  state = {
-    comments: []
-  };
+class SingleComment extends Component {
+  state = {};
 
-  fetchComments = asin => {
-    fetch(`${URL + asin}`, {
+  fetchComment(id) {
+    fetch(`${URL + id}`, {
       headers: {
         Authorization: auth
       }
@@ -23,19 +20,26 @@ class CommentArea extends Component {
           throw new Error("Couldn't get data");
         }
       })
-      .then(comments => {
-        this.setState({ comments: comments });
-      })
-      .catch(error => console.log(error));
-  };
+      .then(comment => {
+        this.setState(comment);
+      });
+  }
 
   componentDidMount() {
-    this.fetchComments(this.props.asin);
+    this.fetchComment(this.props.commentId);
   }
 
   render() {
-    return <Container>{this.state.comments.length > 0 && <CommentsList comments={this.state.comments} />}</Container>;
+    return (
+      <ListGroup.Item>
+        <p>
+          <strong>{this.state.author}</strong>
+        </p>
+        <p>{this.state.comment}</p>
+        <Badge bg="info">{this.state.rate}</Badge>
+      </ListGroup.Item>
+    );
   }
 }
 
-export default CommentArea;
+export default SingleComment;
