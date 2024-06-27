@@ -1,5 +1,6 @@
 import { Card, Col } from "react-bootstrap";
 import React from "react";
+import CommentArea from "./CommentArea";
 
 class SingleBook extends React.Component {
   state = {
@@ -17,13 +18,14 @@ class SingleBook extends React.Component {
   render() {
     return (
       <Col xs={12} md={4} xl={3}>
-        <Card className={this.state.isSelected ? "border-danger" : null}>
+        <Card className={this.state.isSelected ? "border-danger" : null} onClick={this.handleClick}>
           <Card.Img variant="top" src={this.props.book.img} onClick={this.handleClick} />
           <Card.Body>
             <Card.Title className="mb-3">{this.props.book.title}</Card.Title>
             <span className="rounded-pill px-3 py-2 bg-info">${this.props.book.price}</span>
           </Card.Body>
         </Card>
+        <CommentArea asin={this.props.book.asin} />
       </Col>
     );
   }
